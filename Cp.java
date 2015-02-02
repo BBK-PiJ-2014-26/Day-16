@@ -4,34 +4,26 @@ import java.io.IOException;
 import java.lang.ArrayIndexOutOfBoundsException;
 
 /**
- * Exercise 3a: Day-16
+ * Exercise 4a: Day-16
  * @author Gareth Moore
  */
 public class Cp {
 
 	public static void main(String[] args) {
 		try {
-			File checkFileName = new File("." + File.pathSeparator + args[0]);
+			File checkFileName = new File(args[0]);
 			File createFileDir = new File(args[1]);
 			if (checkFileName.exists()) {
 				if (!createFileDir.exists()) {
-					if (createFileDir.mkdir()) {
-						boolean created = checkFileName.createNewFile();
-						if (!created) {
-							System.out.println("Error! File not created!");
-						}
-					}
+					createFileDir.mkdir();
+					createFileDir = new File("." + "/" + createFileDir.getName() + "/" + checkFileName.getName());
+					createFileDir.createNewFile();
 				} else {
 					System.out.println("FILE EXISTS: Do you wish to overwrite? y/n ");
 					Scanner sc = new Scanner(System.in);
 					if (sc.hasNext("y")) {
-						boolean deleted = createFileDir.delete();
-						if (createFileDir.mkdir()) {
-							boolean created = checkFileName.createNewFile();
-							if (!created) {
-								System.out.println("Error! File not created!");
-							}
-						}
+						createFileDir.delete();
+						createFileDir.mkdir();
 					} else if (sc.hasNext("n")) {
 						System.out.println("Goodbye.");
 					} else {
@@ -39,7 +31,7 @@ public class Cp {
 					}
 				}
 			} else {
-				System.out.println("Error! File does not exist!");
+				System.out.println("Error! File doesn't exist!");
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
