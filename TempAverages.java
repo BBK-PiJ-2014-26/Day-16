@@ -16,14 +16,20 @@ public class TempAverages {
 			FileReader myFR = new FileReader(myFile);
 			BufferedReader in = new BufferedReader(myFR);
 			String input = in.readLine();
-			double fileTotal = 0;
+			int fileTotal = 0;
 			int lineCount = 0;
 			while(input != null) {
 				Scanner sc = new Scanner(input);
-				double lineTotal = 0;
+				int lineTotal = 0;
 				int inputCount = 0;
-				while (sc.hasNextDouble()) {
-					lineTotal = lineTotal + sc.nextDouble();
+				while (sc.hasNext()) {
+					String token = sc.Next();
+					int value = 0;
+					for(int i = 0; i < (token.length() -1); i++) {
+						String x = token.substring(i, (i+1));
+						int value = (int) x;
+					}
+					lineTotal = lineTotal + value;
 					inputCount++;
 				}
 				System.out.println("Line Average: " + (fileTotal / inputCount));
