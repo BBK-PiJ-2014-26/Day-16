@@ -12,32 +12,27 @@ public class TempAverages {
 
 	public static void main(String[] args) {
 		try {
-			File myFile = new File("./Temperature averages.csv");
-			FileReader myFR = new FileReader(myFile);
+			FileReader myFR = new FileReader("./Temperature averages.csv");
 			BufferedReader in = new BufferedReader(myFR);
 			String input = in.readLine();
 			int fileTotal = 0;
-			int lineCount = 0;
+			int fileInputCount = 0;
 			while(input != null) {
 				Scanner sc = new Scanner(input);
+				sc.useDelimiter(", ");
 				int lineTotal = 0;
 				int inputCount = 0;
-				while (sc.hasNext()) {
-					String token = sc.Next();
-					int value = 0;
-					for(int i = 0; i < (token.length() -1); i++) {
-						String x = token.substring(i, (i+1));
-						int value = (int) x;
-					}
-					lineTotal = lineTotal + value;
+				while (sc.hasNextInt()) {
+					int temp = sc.nextInt();
+					lineTotal = lineTotal + temp;
 					inputCount++;
 				}
-				System.out.println("Line Average: " + (fileTotal / inputCount));
+				System.out.println("Line Average: " + (lineTotal / inputCount));
 				fileTotal = fileTotal + lineTotal;
-				lineCount++;
+				fileInputCount = fileInputCount + inputCount;
 				input = in.readLine();
 			}
-			System.out.println("Line Average: " + (fileTotal / lineCount));
+			System.out.println("Total Average: " + (fileTotal / fileInputCount));
 		} catch (IOException ex) {
 			System.out.println("INVALID");
 		}
